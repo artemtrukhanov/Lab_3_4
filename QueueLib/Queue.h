@@ -16,6 +16,7 @@ protected:
   int count;
 public:
   TQueue(int size=0);
+  TQueue(const TQueue<T>& q);
   ~TQueue();
 
   TQueue<T>& operator =(TQueue<T>& _v);
@@ -72,6 +73,23 @@ inline TQueue<T>::TQueue(int size)
         throw new exception;
 }
 
+template<class T>
+TQueue<T>::TQueue(const TQueue<T>& q)
+{
+    ind = q.ind;
+    end = q.end;
+    count = q.count;
+    length = q.length;
+    x = new T[length];
+    for (int i = 0; i < length; i++)
+    {
+        if (q.x[i] != NULL)
+            x[i] = q.x[i];
+        else
+            x[i] = NULL;
+    }
+}
+
 template <class T>
 TQueue<T>::~TQueue()
 {
@@ -80,6 +98,7 @@ TQueue<T>::~TQueue()
     delete [] x;
   x = 0;
 }
+
 template <class T>
 TQueue<T>& TQueue<T>::operator =(TQueue<T>& _v)
 {
@@ -101,12 +120,10 @@ template<class T>
 inline void TQueue<T>::Push(T d)
 {
     if (count >= length)
-        throw "Out of range";
-
-    
+        ind = (ind + 1) % length;
     x[end] = d;
-    end = (end+1)%length;
-
+    end = (end + 1) % length;
+    count++;
 }
 
 template<class T>
@@ -114,8 +131,9 @@ inline T TQueue<T>::Get()
 {
     if (count == 0)
         throw new exception;
-
+    count--;
     T d = x[ind];
+    x[ind] = NULL;
     ind = (ind +1)%length;
     return d;
 }

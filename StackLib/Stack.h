@@ -22,6 +22,9 @@ public:
   void Push(T d);
   T Get();
 
+  bool IsEmpty() const;
+  bool IsFull() const;
+
   template <class T1>
   friend ostream& operator<< (ostream& ostr, const TStack<T1> &A);
   template <class T1>
@@ -33,7 +36,7 @@ public:
 template <class T1>
 ostream& operator<< (ostream& ostr, const TStack<T1> &A) {
   for (int i = 0; i < A.ind; i++) {
-    ostr << A.x[i] << endl;
+    ostr << A.x[i] << " ";
   }
   return ostr;
 }
@@ -65,20 +68,22 @@ inline TStack<T>::TStack(int size)
     else
         throw new exception;
 }
+
 template <class T>
 TStack<T>::TStack(TStack<T>& _v)
 {
   length = _v.length;
   ind = _v.ind;
   x = new T [length];
-  for (int i = 0; i < length;i = i + 1)
+  for (int i = 0; i < length;i++)
     x[i] = _v.x[i];
 }
+
 template <class T>
 TStack<T>::~TStack()
 {
   length = 0;
-  if (x != 0)
+  if (x != NULL)
       delete[] x;
   else
       throw new exception;
@@ -104,7 +109,7 @@ template<class T>
 inline void TStack<T>::Push(T d)
 {
     if (ind >= length)
-        throw "Out of range";
+        throw new exception;
 
     x[ind] = d;
     ind++;
@@ -119,6 +124,18 @@ inline T TStack<T>::Get()
     T d = x[ind - 1];
     ind--;
     return d;
+}
+
+template<class T>
+inline bool TStack<T>::IsEmpty() const
+{
+    return ind == 0;
+}
+
+template<class T>
+inline bool TStack<T>::IsFull() const
+{
+    return ind == length;
 }
 
 template <class T>
