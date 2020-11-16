@@ -25,6 +25,9 @@ public:
   bool IsEmpty() const;
   bool IsFull() const;
 
+  int MinElem();
+  int MaxElem();
+
   template <class T1>
   friend ostream& operator<< (ostream& ostr, const TStack<T1> &A);
   template <class T1>
@@ -136,6 +139,26 @@ template<class T>
 inline bool TStack<T>::IsFull() const
 {
     return ind == length;
+}
+
+template<class T>
+inline int TStack<T>::MinElem()
+{
+    int res = x[0];
+    for (int i = 1; i < length; i++)
+        if (x[i] < res)
+            res = x[i];
+    return res;
+}
+
+template<class T>
+inline int TStack<T>::MaxElem()
+{
+    int res = x[0];
+    for (int i = 1; i < length; i++)
+        if (x[i] > res)
+            res = x[i];
+    return res;
 }
 
 template <class T>

@@ -24,6 +24,8 @@ public:
   void Push(T d);
   T Get();
 
+  int MinElem();
+  int MaxElem();
 
   template <class T1>
   friend ostream& operator<< (ostream& ostr, const TQueue<T1> &A);
@@ -136,6 +138,26 @@ inline T TQueue<T>::Get()
     x[ind] = NULL;
     ind = (ind +1)%length;
     return d;
+}
+
+template<class T>
+inline int TQueue<T>::MinElem()
+{
+    int res = x[0];
+    for (int i = 1; i < length; i++)
+        if (x[i] < res)
+            res = x[i];
+    return res;
+}
+
+template<class T>
+inline int TQueue<T>::MaxElem()
+{
+    int res = x[0];
+    for (int i = 1; i < length; i++)
+        if (x[i] > res)
+            res = x[i];
+    return res;
 }
 
 

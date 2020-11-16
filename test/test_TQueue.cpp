@@ -81,3 +81,21 @@ TEST(TQueue, can_push_when_full)
     A.Push(1);
     ASSERT_NO_THROW(A.Push(2));
 }
+
+TEST(TQueue, can_get_min_elem)
+{
+    TQueue <int> A(3);
+    A.Push(5);
+    A.Push(4);
+    A.Push(3);
+    ASSERT_EQ(3, A.MinElem());
+}
+
+TEST(TQueue, can_get_max_elem)
+{
+    TQueue <int> A(3);
+    A.Push(5);
+    A.Push(4);
+    A.Push(3);
+    ASSERT_EQ(5, A.MaxElem());
+}

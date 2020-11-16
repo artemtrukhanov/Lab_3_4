@@ -77,3 +77,21 @@ TEST(TStack, throws_when_get_elem_from_empty_stack)
     TStack<int> A(3);
     ASSERT_ANY_THROW(A.Get());
 }
+
+TEST(TStack, can_get_min_elem)
+{
+    TStack <int> A(3);
+    A.Push(5);
+    A.Push(4);
+    A.Push(3);
+    ASSERT_EQ(3, A.MinElem());
+}
+
+TEST(TStack, can_get_max_elem)
+{
+    TStack <int> A(3);
+    A.Push(5);
+    A.Push(4);
+    A.Push(3);
+    ASSERT_EQ(5, A.MaxElem());
+}
